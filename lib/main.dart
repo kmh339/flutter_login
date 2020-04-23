@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_login/login/login_page.dart';
-import 'package:user_repository/user_repository.dart';
-
-import 'package:flutter_login/authentication/authentication.dart';
-import 'package:flutter_login/splash/splash.dart';
-import 'package:flutter_login/home/home.dart';
 import 'package:flutter_login/common/common.dart';
+import 'package:flutter_login/repositories/user_repository.dart';
+import 'package:flutter_login/ui/login/login_page.dart';
+import 'package:flutter_login/ui/splash/splash_page.dart';
+
+import 'blocs/authentication/authentication_bloc.dart';
+import 'blocs/authentication/authentication_event.dart';
+import 'blocs/authentication/authentication_state.dart';
+import 'ui/home/home_page.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override

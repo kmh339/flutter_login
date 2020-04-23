@@ -9,8 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc:
-  user_repository:
-    path: user_repository
   equatable: ^1.0.0
 
 dev_dependencies:

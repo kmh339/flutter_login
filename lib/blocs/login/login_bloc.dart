@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_login/blocs/authentication/authentication_event.dart';
+import 'package:flutter_login/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
-import 'package:user_repository/user_repository.dart';
-
-import 'package:flutter_login/authentication/authentication.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

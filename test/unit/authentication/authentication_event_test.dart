@@ -1,4 +1,4 @@
-import 'package:flutter_login/authentication/authentication.dart';
+import 'package:flutter_login/blocs/authentication/authentication_event.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

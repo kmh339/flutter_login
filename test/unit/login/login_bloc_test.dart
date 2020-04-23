@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_login/blocs/authentication/authentication_event.dart';
+import 'package:flutter_login/blocs/login/login_bloc.dart';
+import 'package:flutter_login/repositories/user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mockito/mockito.dart';
-import 'package:user_repository/user_repository.dart';
-
-import 'package:flutter_login/authentication/authentication.dart';
-import 'package:flutter_login/login/bloc/login_bloc.dart';
 
 class MockUserRepository extends Mock implements UserRepository {}
 

@@ -1,5 +1,5 @@
+import 'package:flutter_login/blocs/login/login_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_login/login/bloc/login_bloc.dart';
 
 void main() {
   group('LoginEvent', () {
