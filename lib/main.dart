@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/common/common.dart';
-import 'package:flutter_login/repositories/user_repository.dart';
 import 'package:flutter_login/ui/login/login_page.dart';
 import 'package:flutter_login/ui/splash/splash_page.dart';
 
@@ -34,22 +33,18 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final userRepository = UserRepository();
   runApp(
     BlocProvider<AuthenticationBloc>(
       create: (context) {
-        return AuthenticationBloc(userRepository: userRepository)
-          ..add(AppStarted());
+        return AuthenticationBloc()..add(AppStarted());
       },
-      child: App(userRepository: userRepository),
+      child: App(),
     ),
   );
 }
 
 class App extends StatelessWidget {
-  final UserRepository userRepository;
-
-  App({Key key, @required this.userRepository}) : super(key: key);
+  App({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +55,7 @@ class App extends StatelessWidget {
             return HomePage();
           }
           if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: userRepository);
+            return LoginPage();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();

@@ -13,16 +13,18 @@ class MockAuthenticationBloc extends Mock implements AuthenticationBloc {}
 
 void main() {
   LoginBloc loginBloc;
-  MockUserRepository userRepository;
+  MockUserRepository mockUserRepository;
   MockAuthenticationBloc authenticationBloc;
 
   setUp(() {
-    userRepository = MockUserRepository();
+    mockUserRepository = MockUserRepository();
     authenticationBloc = MockAuthenticationBloc();
     loginBloc = LoginBloc(
-      userRepository: userRepository,
       authenticationBloc: authenticationBloc,
     );
+
+    // inject mock
+    loginBloc.userRepository = mockUserRepository;
   });
 
   tearDown(() {
@@ -30,20 +32,9 @@ void main() {
     authenticationBloc?.close();
   });
 
-  test('throws AssertionError when userRepository is null', () {
-    expect(
-      () => LoginBloc(
-        userRepository: null,
-        authenticationBloc: authenticationBloc,
-      ),
-      throwsAssertionError,
-    );
-  });
-
   test('throws AssertionError when authenticationBloc is null', () {
     expect(
       () => LoginBloc(
-        userRepository: userRepository,
         authenticationBloc: null,
       ),
       throwsAssertionError,
@@ -66,7 +57,7 @@ void main() {
     blocTest(
       'emits [LoginLoading, LoginInitial] and token on success',
       build: () async {
-        when(userRepository.authenticate(
+        when(mockUserRepository.authenticate(
           username: 'valid.username',
           password: 'valid.password',
         )).thenAnswer((_) => Future.value('token'));
@@ -90,7 +81,7 @@ void main() {
     blocTest(
       'emits [LoginLoading, LoginFailure] on failure',
       build: () async {
-        when(userRepository.authenticate(
+        when(mockUserRepository.authenticate(
           username: 'valid.username',
           password: 'valid.password',
         )).thenThrow(Exception('login-error'));

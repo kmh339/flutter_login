@@ -11,22 +11,18 @@ class MockUserRepository extends Mock implements UserRepository {}
 
 void main() {
   AuthenticationBloc authenticationBloc;
-  MockUserRepository userRepository;
+  MockUserRepository mockUserRepository;
 
   setUp(() {
-    userRepository = MockUserRepository();
-    authenticationBloc = AuthenticationBloc(userRepository: userRepository);
+    authenticationBloc = AuthenticationBloc();
+    mockUserRepository = MockUserRepository();
+
+    // inject mock
+    authenticationBloc.userRepository = mockUserRepository;
   });
 
   tearDown(() {
     authenticationBloc?.close();
-  });
-
-  test('throws AssertionError when userRepository is null', () {
-    expect(
-      () => AuthenticationBloc(userRepository: null),
-      throwsAssertionError,
-    );
   });
 
   test('initial state is correct', () {
@@ -45,7 +41,8 @@ void main() {
     blocTest(
       'emits [unauthenticated] for invalid token',
       build: () async {
-        when(userRepository.hasToken()).thenAnswer((_) => Future.value(false));
+        when(mockUserRepository.hasToken())
+            .thenAnswer((_) => Future.value(false));
         return authenticationBloc;
       },
       act: (bloc) => bloc.add(AppStarted()),
@@ -57,7 +54,8 @@ void main() {
     blocTest(
       'emits [authenticated] for valid token',
       build: () async {
-        when(userRepository.hasToken()).thenAnswer((_) => Future.value(true));
+        when(mockUserRepository.hasToken())
+            .thenAnswer((_) => Future.value(true));
         return authenticationBloc;
       },
       act: (bloc) => bloc.add(AppStarted()),
