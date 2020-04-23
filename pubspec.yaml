@@ -9,7 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc:
-    path: ../../packages/flutter_bloc
   user_repository:
     path: user_repository
   equatable: ^1.0.0
@@ -18,7 +17,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   bloc_test:
-    path: ../../packages/bloc_test
   mockito: ^4.0.0
 
 flutter:
