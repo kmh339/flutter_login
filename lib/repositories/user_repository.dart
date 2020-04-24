@@ -8,6 +8,7 @@ class UserRepository {
     @required String password,
   }) async {
     await Future.delayed(Duration(seconds: 1));
+    throw Exception('Error');
     return 'token';
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/login/login_bloc.dart';
+import 'package:get/get.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -25,11 +26,15 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text('${state.error}'),
-              backgroundColor: Colors.red,
-            ),
+          Get.snackbar(
+            "안내!", // title
+            "It's unbelievable! $state", // message
+            icon: Icon(Icons.alarm),
+            shouldIconPulse: true,
+            barBlur: 90,
+            isDismissible: true,
+            backgroundColor: Colors.cyan[800],
+            duration: Duration(seconds: 3),
           );
         }
       },
