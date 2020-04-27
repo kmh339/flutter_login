@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/common/common.dart';
 import 'package:flutter_login/simple_bloc_delegate.dart';
 import 'package:flutter_login/ui/login/login_page.dart';
+import 'package:flutter_login/ui/pages/first.dart';
 import 'package:flutter_login/ui/splash/splash_page.dart';
 
 import 'blocs/authentication/authentication_bloc.dart';

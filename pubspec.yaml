@@ -11,6 +11,7 @@ dependencies:
   flutter_bloc:
   equatable: ^1.0.0
   shared_preferences: ^0.5.7
+  get: ^1.17.3
 
 dev_dependencies:
   flutter_test:
