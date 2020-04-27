@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/login/login_bloc.dart';
+import 'package:flutter_login/ui/home/home_page.dart';
+import 'package:get/get.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class _LoginFormState extends State<LoginForm> {
     _onLoginButtonPressed() {
       BlocProvider.of<LoginBloc>(context).add(
         LoginButtonPressed(
-          username: _usernameController.text,
+          email: _usernameController.text,
           password: _passwordController.text,
         ),
       );
@@ -31,6 +33,9 @@ class _LoginFormState extends State<LoginForm> {
               backgroundColor: Colors.red,
             ),
           );
+        }
+        if (state is LoginSuccess) {
+          Get.toNamed("/first");
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(

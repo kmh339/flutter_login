@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case '/first':
         return GetRoute(
           page: First(),
           settings: settings,

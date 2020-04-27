@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/common/common.dart';
+import 'package:flutter_login/router/router.dart';
 import 'package:flutter_login/simple_bloc_delegate.dart';
 import 'package:flutter_login/ui/login/login_page.dart';
 import 'package:flutter_login/ui/pages/first.dart';
 import 'package:flutter_login/ui/splash/splash_page.dart';
+import 'package:get/get.dart';
 
 import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/authentication/authentication_event.dart';
@@ -32,6 +34,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: Router.generateRoute,
+      initialRoute: "/",
+      navigatorKey: Get.key,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationAuthenticated) {

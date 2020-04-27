@@ -5,20 +5,17 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 class AmuseApiClient {
-  static const baseUrl = 'https://dev.amusetravel.com';
-  final http.Client httpClient;
+  static const baseUrl = 'http://dev.amusetravel.com';
+  final _httpClient = http.Client();
   final _userRepository = UserRepository();
 
-  AmuseApiClient({
-    @required this.httpClient,
-  }) : assert(httpClient != null);
 
   Future<dynamic> get(String url) async {
     String accessToken = await _userRepository.getAccessToken();
 
     if (accessToken != null) {
       print("]-----] apiUrl + url [-----[ ${baseUrl + url}");
-      final response = await httpClient.get(baseUrl + url, headers: {
+      final response = await _httpClient.get(baseUrl + url, headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': accessToken
       });
@@ -46,7 +43,7 @@ class AmuseApiClient {
     String accessToken = await _userRepository.getAccessToken();
 
     if (accessToken != null) {
-      final response = await httpClient.post(baseUrl + url,
+      final response = await _httpClient.post(baseUrl + url,
           headers: {
             'Content-Type': 'application/json',
             "Authorization": accessToken
@@ -70,7 +67,7 @@ class AmuseApiClient {
 
   Future<dynamic> postForLogin(String url, String body) async {
     print(']-------] postWithoutAuth : body [-------[ ${baseUrl + url}');
-    final response = await httpClient.post(baseUrl + url,
+    final response = await _httpClient.post(baseUrl + url,
         headers: {'Content-Type': 'application/json'}, body: body);
 
     Map<String, dynamic> jsonBody =
