@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRepository {
   Future<String> authenticate({
@@ -27,5 +28,11 @@ class UserRepository {
     /// read from keystore/keychain
     await Future.delayed(Duration(seconds: 1));
     return false;
+  }
+
+  Future<String> getAccessToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    String accessToken = prefs.getString('accessTokenWith');
+    return accessToken;
   }
 }

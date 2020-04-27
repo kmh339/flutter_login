@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/common/common.dart';
+import 'package:flutter_login/simple_bloc_delegate.dart';
 import 'package:flutter_login/ui/login/login_page.dart';
 import 'package:flutter_login/ui/splash/splash_page.dart';
 
@@ -11,25 +12,6 @@ import 'blocs/authentication/authentication_event.dart';
 import 'blocs/authentication/authentication_state.dart';
 import 'ui/home/home_page.dart';
 
-class SimpleBlocDelegate extends BlocDelegate {
-  @override
-  void onEvent(Bloc bloc, Object event) {
-    print(event);
-    super.onEvent(bloc, event);
-  }
-
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    print(transition);
-    super.onTransition(bloc, transition);
-  }
-
-  @override
-  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
-    print(error);
-    super.onError(bloc, error, stackTrace);
-  }
-}
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
