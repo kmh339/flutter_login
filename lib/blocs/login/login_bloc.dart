@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_login/data/amuse_api_client.dart';
 import 'package:flutter_login/repositories/user_repository.dart';
+import 'package:flutter_login/services/amuse_api_client.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
