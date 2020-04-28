@@ -47,21 +47,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoading();
       yield* _mapLoginWithApiToState(event.email, event.password);
 
-
-//      yield LoginLoading();
-//
-//      try {
-//        final token = await _userRepository.authenticate(
-//          username: event.username,
-//          password: event.password,
-//        );
-//        _authenticationBloc.add(LoggedIn(token: token));
-//        yield LoginInitial();
-//
-//
-//      } catch (error) {
-//        yield LoginFailure(error: error.toString());
-//      }
     }
   }
 
