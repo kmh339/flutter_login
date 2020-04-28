@@ -9,39 +9,45 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   UserRepository _userRepository = UserRepository();
 
-  AuthenticationBloc();
-
   @override
-  AuthenticationState get initialState => AuthenticationUninitialized();
+  AuthenticationState get initialState => AuthenticationInitial();
 
   @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
     if (event is AppStarted) {
-      final bool hasToken = await _userRepository.hasToken();
-
-      if (hasToken) {
-        yield AuthenticationAuthenticated();
-      } else {
-        yield AuthenticationUnauthenticated();
-      }
+      yield* _mapAppLoadedToState();
     }
 
     if (event is LoggedIn) {
-      yield AuthenticationLoading();
-      await _userRepository.persistToken(event.token);
-      yield AuthenticationAuthenticated();
+      yield* _mapLoggedInWithApiToState();
     }
 
     if (event is LoggedOut) {
-      yield AuthenticationLoading();
-      await _userRepository.deleteToken();
-      yield AuthenticationUnauthenticated();
+      yield* _mapLoggedOutWithApiToState();
     }
   }
 
-  // injection
-  set userRepository(UserRepository userRepository) =>
-      _userRepository = userRepository;
+  Stream<AuthenticationState> _mapAppLoadedToState() async* {
+    final isSignedIn = await _userRepository.isSignedIn();
+    if (isSignedIn) {
+      yield Authenticated();
+    } else {
+      yield Unauthenticated();
+    }
+  }
+
+  Stream<AuthenticationState> _mapLoggedInWithApiToState() async* {
+    yield Authenticated();
+  }
+
+  Stream<AuthenticationState> _mapLoggedOutWithApiToState() async* {
+    await _userRepository.deleteToken();
+    yield Unauthenticated();
+  }
+
+//  // injection
+//  set userRepository(UserRepository userRepository) =>
+//      _userRepository = userRepository;
 }

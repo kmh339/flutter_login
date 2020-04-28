@@ -39,10 +39,10 @@ class App extends StatelessWidget {
       navigatorKey: Get.key,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if (state is AuthenticationAuthenticated) {
+          if (state is Authenticated) {
             return HomePage();
           }
-          if (state is AuthenticationUnauthenticated) {
+          if (state is Unauthenticated) {
             return LoginPage();
           }
           if (state is AuthenticationLoading) {

@@ -8,7 +8,6 @@ class AmuseApiClient {
   final _httpClient = http.Client();
   final _userRepository = UserRepository();
 
-
   Future<dynamic> get(String url) async {
     String accessToken = await _userRepository.getAccessToken();
 
@@ -37,19 +36,24 @@ class AmuseApiClient {
       throw Exception('Error accessToken is null');
     }
   }
+
 //
-  Future<dynamic> post(String url, String body) async {
-    String accessToken = await _userRepository.getAccessToken();
+  Future<dynamic> post(String url, String body, String token) async {
+//    String accessToken = await _userRepository.getAccessToken();
+    final String accessToken = token;
 
     if (accessToken != null) {
-      final response = await _httpClient.post(baseUrl + url,
-          headers: {
-            'Content-Type': 'application/json',
-            "Authorization": accessToken
-          },
-          body: body);
+      final response = await _httpClient.post(
+        baseUrl + url,
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": accessToken
+        },
+        body: body,
+      );
 
-      print("]-----] AmuseApiClient Future post : response [-----[ ${response.statusCode}");
+      print(
+          "]-----] AmuseApiClient Future post : response [-----[ ${response.statusCode}");
 
       if (response.statusCode == 200 || response.statusCode == 500) {
         return json.decode(utf8.decode(response.bodyBytes));
@@ -60,23 +64,20 @@ class AmuseApiClient {
         throw Exception('Error in post : $result');
       }
     } else {
-      throw Exception('Error accessToken is null');
-    }
-  }
+      print(']-------] postWithoutAuth : body [-------[ ${baseUrl + url}');
+      final response = await _httpClient.post(baseUrl + url,
+          headers: {'Content-Type': 'application/json'}, body: body);
 
-  Future<dynamic> postForLogin(String url, String body) async {
-    print(']-------] postWithoutAuth : body [-------[ ${baseUrl + url}');
-    final response = await _httpClient.post(baseUrl + url,
-        headers: {'Content-Type': 'application/json'}, body: body);
+      Map<String, dynamic> jsonBody =
+          json.decode(utf8.decode(response.bodyBytes));
 
-    Map<String, dynamic> jsonBody =
-    json.decode(utf8.decode(response.bodyBytes));
-
-    if (response.statusCode == 200 || response.statusCode == 500) {
-      await _userRepository.persistToken(jsonBody['accessToken']);
-      return jsonBody;
-    } else {
-      throw Exception('Error postForLogin statusCode : ${response.statusCode}');
+      if (response.statusCode == 200 || response.statusCode == 500) {
+        await _userRepository.persistToken(jsonBody['accessToken']);
+        return jsonBody;
+      } else {
+        throw Exception(
+            'Error postForLogin statusCode : ${response.statusCode}');
+      }
     }
   }
 }

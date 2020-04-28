@@ -47,7 +47,7 @@ void main() {
       },
       act: (bloc) => bloc.add(AppStarted()),
       expect: [
-        AuthenticationUnauthenticated(),
+        Unauthenticated(),
       ],
     );
 
@@ -60,7 +60,7 @@ void main() {
       },
       act: (bloc) => bloc.add(AppStarted()),
       expect: [
-        AuthenticationAuthenticated(),
+        Authenticated(),
       ],
     );
   });
@@ -72,7 +72,7 @@ void main() {
       act: (bloc) => bloc.add(LoggedIn(token: 'instance.token')),
       expect: [
         AuthenticationLoading(),
-        AuthenticationAuthenticated(),
+        Authenticated(),
       ],
     );
   });
@@ -84,7 +84,7 @@ void main() {
       act: (bloc) => bloc.add(LoggedOut()),
       expect: [
         AuthenticationLoading(),
-        AuthenticationUnauthenticated(),
+        Unauthenticated(),
       ],
     );
   });

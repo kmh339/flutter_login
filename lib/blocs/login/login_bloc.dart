@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_login/models/user.dart';
+import 'package:flutter_login/models/user_data.dart';
+import 'package:flutter_login/models/user_meta.dart';
 import 'package:flutter_login/repositories/user_repository.dart';
 import 'package:flutter_login/services/amuse_api_client.dart';
 import 'package:meta/meta.dart';
@@ -53,23 +56,28 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginWithApiToState(String email, String password) async* {
     try {
       String body = json.encode({"email": email, "password": password});
-      final response = await _amuseApiClient.postForLogin('/api/login', body);
+      final response = await _amuseApiClient.post('/api/login', body, null);
 
       if(response != null) {
-        print("${response['data']}");
+        print("]-----] _mapLoginWithApiToState : response [-----[ $response");
+        User user = User.fromJson(response);
+        UserData userData = user.data;
+        UserMeta userMeta = user.meta;
         print("Success Login");
-        yield LoginSuccess();
+
+        yield LoginSuccess(name: userData.name, token: userMeta.token);
       }
     } catch (_) {
       yield LoginFailure(error: "error in login");
     }
   }
 
-  // injection
-  set userRepository(UserRepository userRepository) =>
-      _userRepository = userRepository;
 
-  set authenticationBloc(AuthenticationBloc authenticationBloc) {
-    _authenticationBloc = authenticationBloc;
-  }
+//  // injection
+//  set userRepository(UserRepository userRepository) =>
+//      _userRepository = userRepository;
+//
+//  set authenticationBloc(AuthenticationBloc authenticationBloc) {
+//    _authenticationBloc = authenticationBloc;
+//  }
 }
