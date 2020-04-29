@@ -37,11 +37,7 @@ class AmuseApiClient {
     }
   }
 
-//
-  Future<dynamic> post(String url, String body, String token) async {
-//    String accessToken = await _userRepository.getAccessToken();
-    final String accessToken = token;
-
+  Future<dynamic> post(String url, String body, String accessToken) async {
     if (accessToken != null) {
       final response = await _httpClient.post(
         baseUrl + url,
@@ -63,16 +59,18 @@ class AmuseApiClient {
         var result = json.decode(response.body);
         throw Exception('Error in post : $result');
       }
-    } else {
-      print(']-------] postWithoutAuth : body [-------[ ${baseUrl + url}');
+    } else if (accessToken == null){
       final response = await _httpClient.post(baseUrl + url,
           headers: {'Content-Type': 'application/json'}, body: body);
+
+      print(
+          "]-----] AmuseApiClient Future postWithoutAuth : response [-----[ ${response.statusCode}");
 
       Map<String, dynamic> jsonBody =
           json.decode(utf8.decode(response.bodyBytes));
 
       if (response.statusCode == 200 || response.statusCode == 500) {
-        await _userRepository.persistToken(jsonBody['accessToken']);
+//        await _userRepository.persistToken(jsonBody['accessToken']);
         return jsonBody;
       } else {
         throw Exception(

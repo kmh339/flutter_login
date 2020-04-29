@@ -63,9 +63,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         User user = User.fromJson(response);
         UserData userData = user.data;
         UserMeta userMeta = user.meta;
+        print("user token : ${userMeta.token}");
         print("Success Login");
-
-        yield LoginSuccess(name: userData.name, token: userMeta.token);
+        _userRepository.persistToken(userMeta.token);
+        _userRepository.persistName(userData.name);
+        yield LoginSuccess();
       }
     } catch (_) {
       yield LoginFailure(error: "error in login");

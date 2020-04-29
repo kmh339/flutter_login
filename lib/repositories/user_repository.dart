@@ -20,12 +20,12 @@ class UserRepository {
 
   Future<void> persistToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('accessTokenWith', token);
+    prefs.setString('accessToken', token);
   }
 
   Future<bool> hasToken() async {
     final prefs = await SharedPreferences.getInstance();
-    String accessToken = prefs.getString('accessTokenWith');
+    String accessToken = prefs.getString('accessToken');
     bool hasToken = false;
 //    hasToken = (accessToken == null ? false : true);
     if(accessToken == null) {
@@ -38,13 +38,13 @@ class UserRepository {
 
   Future<String> getAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
-    String accessToken = prefs.getString('accessTokenWith');
+    String accessToken = prefs.getString('accessToken');
     return accessToken;
   }
 
   Future<bool> isSignedIn() async {
     final prefs = await SharedPreferences.getInstance();
-    String accessToken = prefs.getString('accessTokenWith');
+    String accessToken = prefs.getString('accessToken');
     bool isSigned = false;
     if(accessToken == null) {
       isSigned = false;
@@ -52,5 +52,16 @@ class UserRepository {
       isSigned = true;
     }
     return isSigned;
+  }
+
+  Future<void> persistName(String name) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', name);
+  }
+
+  Future<String> getName() async {
+    final prefs = await SharedPreferences.getInstance();
+    String getName = prefs.getString('name');
+    return getName;
   }
 }

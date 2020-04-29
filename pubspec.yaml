@@ -11,7 +11,7 @@ dependencies:
   flutter_bloc:
   equatable: ^1.0.0
   shared_preferences: ^0.5.7
-  get: ^1.17.3
+  get: ^2.0.3
   rxdart: ^0.23.1
   json_serializable: ^3.3.0
   build_runner: ^1.9.0

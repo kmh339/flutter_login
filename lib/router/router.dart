@@ -14,20 +14,24 @@ class Router {
         );
       case '/second':
         return GetRoute(
-            settings: settings, page: Second(), transition: Transition.fade);
+          settings: settings,
+          page: Second(),
+          transition: Transition.cupertino,
+        );
       case '/third':
         return GetRoute(
-            settings: settings,
-            page: Third(),
-            popGesture: true,
-            transition: Transition.cupertino);
+          settings: settings,
+          page: Third(),
+          popGesture: true,
+          transition: Transition.cupertino,
+        );
       default:
         return GetRoute(
             settings: settings,
             transition: Transition.fade,
             page: Scaffold(
               body:
-              Center(child: Text('No route defined for ${settings.name}')),
+                  Center(child: Text('No route defined for ${settings.name}')),
             ));
     }
   }

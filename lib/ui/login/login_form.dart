@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/login/login_bloc.dart';
 import 'package:flutter_login/ui/home/home_page.dart';
+import 'package:flutter_login/ui/pages/first.dart';
 import 'package:get/get.dart';
 
 class LoginForm extends StatefulWidget {
@@ -35,7 +36,8 @@ class _LoginFormState extends State<LoginForm> {
           );
         }
         if (state is LoginSuccess) {
-          Get.toNamed("/first");
+//          Get.to(HomePage());
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),);
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(

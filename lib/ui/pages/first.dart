@@ -1,10 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login/models/user_data.dart';
+import 'package:flutter_login/repositories/user_repository.dart';
 import 'package:get/get.dart';
 
-class First extends StatelessWidget {
+class First extends StatefulWidget {
+  @override
+  _FirstState createState() => _FirstState();
+}
+
+class _FirstState extends State<First> {
+  final _userRepository = UserRepository();
+  String userName;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _userRepository.getName().then((name){
+      setState(() {
+        userName = name;
+      });
+      print("userName initstate : $userName");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -13,16 +36,21 @@ class First extends StatelessWidget {
             Get.snackbar("hi", "i am a modern snackbar");
           },
         ),
-        title: Text('First Route'),
+        title: Text('Hello ${userName}'),
       ),
       body: Center(
         child: RaisedButton(
           child: Text('To the 2nd route'),
           onPressed: () {
-            Get.toNamed("/second");
+            Get.toNamed("/second", arguments: "$userName", );
           },
         ),
       ),
     );
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
   }
 }
