@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/login/login_bloc.dart';
 import 'package:flutter_login/ui/home/home_page.dart';
-import 'package:flutter_login/ui/pages/first.dart';
 import 'package:get/get.dart';
 
 class LoginForm extends StatefulWidget {
@@ -13,6 +12,11 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class _LoginFormState extends State<LoginForm> {
         }
         if (state is LoginSuccess) {
 //          Get.to(HomePage());
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()),);
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(

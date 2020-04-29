@@ -14,9 +14,8 @@ class UserRepository {
   }
 
   Future<void> deleteToken() async {
-    /// delete from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return;
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('accessToken');
   }
 
   Future<void> persistToken(String token) async {
@@ -77,6 +76,15 @@ class UserRepository {
     final prefs = await SharedPreferences.getInstance();
     String getAvatar = prefs.getString('avatar');
     return getAvatar;
+  }
+
+  Future<void> deleteUserInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('accessToken');
+    prefs.remove('name');
+    prefs.remove('avatar');
+    prefs.remove('email');
+    print("]-----] userInfo Deleted [-----[");
   }
 
 

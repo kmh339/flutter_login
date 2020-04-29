@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: Router.generateRoute,
-      initialRoute: "/first",
+      initialRoute: "/",
       navigatorKey: Get.key,
     );
   }

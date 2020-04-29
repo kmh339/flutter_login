@@ -49,7 +49,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LoginButtonPressed) {
       yield LoginLoading();
       yield* _mapLoginWithApiToState(event.email, event.password);
-
     }
   }
 

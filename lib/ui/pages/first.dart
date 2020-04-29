@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/models/user_data.dart';
 import 'package:flutter_login/repositories/user_repository.dart';
+import 'package:flutter_login/ui/login/login_page.dart';
 import 'package:get/get.dart';
 
 class First extends StatefulWidget {
@@ -16,7 +17,6 @@ class _FirstState extends State<First> {
   @override
   void initState() {
     super.initState();
-
     _userRepository.getName().then((name){
       setState(() {
         userName = name;
@@ -27,7 +27,6 @@ class _FirstState extends State<First> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -39,11 +38,26 @@ class _FirstState extends State<First> {
         title: Text('Hello $userName'),
       ),
       body: Center(
-        child: RaisedButton(
-          child: Text('To the 2nd route'),
-          onPressed: () {
-            Get.toNamed("/second", arguments: "$userName", );
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RaisedButton(
+              child: Text('To the 2nd route'),
+              onPressed: () {
+                Get.toNamed("/second", arguments: "$userName", );
+              },
+            ),
+            RaisedButton(
+              child: Text('Logout'),
+              onPressed: () {
+                print("logout");
+                _userRepository.deleteUserInfo();
+
+                Get.offAll(LoginPage());
+              },
+            ),
+          ],
+
         ),
       ),
     );

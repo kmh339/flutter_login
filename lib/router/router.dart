@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/ui/pages/first.dart';
+import 'package:flutter_login/ui/pages/first_page.dart';
 import 'package:flutter_login/ui/pages/second.dart';
 import 'package:flutter_login/ui/pages/third.dart';
 import 'package:get/get.dart';
@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/first':
+      case '/':
         return GetRoute(
-          page: First(),
+          page: FirstPage(),
           settings: settings,
         );
       case '/second':

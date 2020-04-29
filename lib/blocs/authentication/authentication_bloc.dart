@@ -43,7 +43,7 @@ class AuthenticationBloc
   }
 
   Stream<AuthenticationState> _mapLoggedOutWithApiToState() async* {
-    await _userRepository.deleteToken();
+    await _userRepository.deleteUserInfo();
     yield Unauthenticated();
   }
 
