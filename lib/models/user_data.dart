@@ -10,13 +10,11 @@ class UserData extends Equatable {
   final String avatar;
   final String email;
 
-
   const UserData({
     this.id,
     this.name,
     this.avatar,
     this.email,
-
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);

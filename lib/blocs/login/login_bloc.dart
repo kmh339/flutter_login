@@ -65,8 +65,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         UserMeta userMeta = user.meta;
         print("user token : ${userMeta.token}");
         print("Success Login");
+        _userRepository.setUserData(userData);
         _userRepository.persistToken(userMeta.token);
-        _userRepository.persistName(userData.name);
+//        _userRepository.persistName(userData.name);
         yield LoginSuccess();
       }
     } catch (_) {

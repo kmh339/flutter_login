@@ -36,7 +36,7 @@ class _FirstState extends State<First> {
             Get.snackbar("hi", "i am a modern snackbar");
           },
         ),
-        title: Text('Hello ${userName}'),
+        title: Text('Hello $userName'),
       ),
       body: Center(
         child: RaisedButton(

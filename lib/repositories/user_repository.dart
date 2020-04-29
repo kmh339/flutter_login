@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_login/models/user_data.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,18 +24,18 @@ class UserRepository {
     prefs.setString('accessToken', token);
   }
 
-  Future<bool> hasToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    String accessToken = prefs.getString('accessToken');
-    bool hasToken = false;
-//    hasToken = (accessToken == null ? false : true);
-    if(accessToken == null) {
-      hasToken = false;
-    }else{
-      hasToken = true;
-    }
-    return hasToken;
-  }
+//  Future<bool> hasToken() async {
+//    final prefs = await SharedPreferences.getInstance();
+//    String accessToken = prefs.getString('accessToken');
+//    bool hasToken = false;
+////    hasToken = (accessToken == null ? false : true);
+//    if(accessToken == null) {
+//      hasToken = false;
+//    }else{
+//      hasToken = true;
+//    }
+//    return hasToken;
+//  }
 
   Future<String> getAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -59,9 +60,24 @@ class UserRepository {
     prefs.setString('name', name);
   }
 
+  Future<void> setUserData(UserData userData) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', userData.name);
+    prefs.setString('avatar', userData.avatar);
+    prefs.setString('email', userData.email);
+  }
+
   Future<String> getName() async {
     final prefs = await SharedPreferences.getInstance();
     String getName = prefs.getString('name');
     return getName;
   }
+
+  Future<String> getAvatar() async {
+    final prefs = await SharedPreferences.getInstance();
+    String getAvatar = prefs.getString('avatar');
+    return getAvatar;
+  }
+
+
 }
